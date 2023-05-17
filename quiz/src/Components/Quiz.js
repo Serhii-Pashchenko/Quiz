@@ -1,10 +1,13 @@
-import React, { useState, useContext } from "react";
-import { QuizContext } from "../Context/Context";
+import React, { useState } from "react";
 import { Questions } from "./QuestionsList";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuizState, setScore } from '../features/quizSlice';
 
 function Quiz() {
 
-  const {score, setScore, setQuizState} = useContext(QuizContext);
+  const dispatch = useDispatch();
+  const score = useSelector((state) => state.quiz.score);
+
 
   const [currQuestion, setCurrQuestion] = useState(0);
   const [optionChosen, setOptionChosen] = useState("");
@@ -15,16 +18,16 @@ function Quiz() {
       button.style.backgroundColor = "buttonface";
     })
     if (Questions[currQuestion].answer === optionChosen) {
-      setScore(score + 1);
+      dispatch(setScore(score + 1));
     }
     setCurrQuestion(currQuestion + 1);
   }
 
   const finishQuiz = () => {
     if (Questions[currQuestion].answer === optionChosen) {
-      setScore(score + 1);
+      dispatch(setScore(score + 1));
     }
-    setQuizState("endSreen");
+    dispatch(setQuizState("endSreen"));
   }
   return (
     <div className="Quiz">

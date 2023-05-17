@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
-import { QuizContext } from "../Context/Context";
+import React from "react";
 import "../App.css";
+import { useDispatch } from "react-redux";
+import { setQuizState } from '../features/quizSlice';
 
 export default function MainMenu() {
-  const { quizState, setQuizState } = useContext(QuizContext);
+  const dispatch = useDispatch();
   return (
     <div className="Menu">
-      <button onClick={() => setQuizState("quiz")}>Почати</button>
+      <button onClick={() => dispatch(setQuizState("quiz"))}>Почати</button>
     </div>
   )
 }

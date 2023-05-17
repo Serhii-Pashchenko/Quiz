@@ -1,14 +1,17 @@
-import React, { useContext} from "react";
-import { QuizContext } from "../Context/Context";
+import React from "react";
 import { Questions } from "./QuestionsList";
 import "../App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuizState, setScore } from '../features/quizSlice';
 
 function EndScreen() {
-  const { score, setScore, setQuizState } = useContext(QuizContext);
+
+  const dispatch = useDispatch();
+  const score = useSelector((state) => state.quiz.score);
 
   const restartQuiz = () => {
-    setScore(0);
-    setQuizState("menu");
+    dispatch(setScore(0));
+    dispatch(setQuizState("menu"));
   }
   return (
     <div className="EndScreen">
